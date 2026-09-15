@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIT LAB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">🔬 SLIT LAB</div>
+
+    <div class="level-box">
+        <span class="level">LV <span id="playerLevel">1</span></span>
+
+        <div class="xp-container">
+            <div class="xp-bar" id="xpBar"></div>
+        </div>
+    </div>
+
+    <div class="score-box">
+        ⭐ <span id="score">0</span>
+    </div>
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="mainMenu" class="page active">
+
+    <div class="hero">
+
+        <div>
+            <h1>ห้องทดลองสลิต</h1>
+
+            <p>
+                ทดลองการเลี้ยวเบนและการแทรกสอดของแสง
+                ด้วยการปรับค่าต่าง ๆ ด้วยตัวเอง
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="openMission()">
+                    🎯 เริ่มภารกิจ
+                </button>
+
+                <button class="secondary-btn" onclick="openLab()">
+                    🔬 เข้า Free Lab
+                </button>
+            </div>
+        </div>
+
+        <div class="home-visual">
+            <div class="laser-line"></div>
+
+            <div class="home-slits">
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="home-screen">
+                ▌ ▌ ▌ ▌ ▌
+            </div>
+        </div>
+
+    </div>
+
+
+ <div class="menu-grid">
+
+    <div class="menu-card clickable" onclick="openMission()">
+        <div class="menu-icon">🎯</div>
+        <h3>Mission</h3>
+        <p>
+            ตอบคำถามเกี่ยวกับการเลี้ยวเบน
+            และการแทรกสอด
+        </p>
+
+        <span class="card-action">
+            เริ่มภารกิจ →
+        </span>
+    </div>
+
+
+    <div class="menu-card clickable" onclick="openLab()">
+        <div class="menu-icon">🔬</div>
+        <h3>Free Lab</h3>
+        <p>
+            ทดลองปรับค่าต่าง ๆ
+            และดูผลการทดลองแบบทันที
+        </p>
+
+        <span class="card-action">
+            เข้าห้องทดลอง →
+        </span>
+    </div>
+
+
+    <div class="menu-card clickable" onclick="openLearn()">
+        <div class="menu-icon">📚</div>
+        <h3>Learn</h3>
+        <p>
+            เรียนรู้สูตรและหลักการสำคัญ
+            แบบเข้าใจง่าย
+        </p>
+
+        <span class="card-action">
+            เริ่มเรียน →
+        </span>
+    </div>
+
+</div>
+        <div class="menu-card">
+            <div class="menu-icon">📚</div>
+            <h3>Learn</h3>
+            <p>
+                เรียนรู้สูตรและหลักการสำคัญ
+                แบบสั้น ๆ
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FREE LAB ================= -->
+
+<section id="labPage" class="page">
+
+    <div class="lab-title-area">
+
+        <button class="back-btn" onclick="goHome()">
+            ← กลับหน้าหลัก
+        </button>
+
+        <h1>🔬 Free Lab</h1>
+
+        <p>
+            ทดลองด้วยตัวเอง แล้วสังเกตว่า
+            <strong>เมื่อเปลี่ยนค่าแล้วลายแสงเปลี่ยนอย่างไร</strong>
+        </p>
+
+    </div>
+
+
+    <!-- เลือกการทดลอง -->
+
+    <div class="experiment-choice">
+
+        <h2>① เลือกการทดลอง</h2>
+
+        <div class="type-buttons">
+
+            <button
+                id="singleBtn"
+                class="type-btn active"
+                onclick="setExperiment('single')">
+
+                🔵 Single Slit
+
+                <small>
+                    ช่องเดี่ยว
+                </small>
+
+            </button>
+
+            <button
+                id="doubleBtn"
+                class="type-btn"
+                onclick="setExperiment('double')">
+
+                🟣 Double Slit
+
+                <small>
+                    ช่องคู่
+                </small>
+
+            </button>
+
+        </div>
+
+        <div class="simple-explain" id="experimentExplain">
+            <strong>🔵 Single Slit</strong>
+
+            <p>
+                แสงผ่านช่องเดียว แล้วเกิดการ
+                <b>เลี้ยวเบน</b> เป็นแถบสว่างและมืด
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- ส่วนทดลอง -->
+
+    <div class="lab-grid">
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <div class="settings-card">
+
+            <h2>② ตั้งค่าการทดลอง</h2>
+
+            <p class="card-description">
+                ลองเลื่อนค่า แล้วสังเกตผลทางขวา
+            </p>
+
+
+            <!-- wavelength -->
+
+            <div class="setting">
+
+                <div class="setting-top">
+
+                    <label>
+                        💡 ความยาวคลื่น
+                    </label>
+
+                    <span id="lambdaValue">
+                        550 nm
+                    </span>
+
+                </div>
+
+                <input
+                    id="lambda"
+                    type="range"
+                    min="400"
+                    max="700"
+                    value="550"
+                >
+
+                <p>
+                    สีของแสงและขนาดของลายแสง
+                </p>
+
+            </div>
+
+
+            <!-- slit width -->
+
+            <div class="setting">
+
+                <div class="setting-top">
+
+                    <label>
+                        ↔️ ความกว้างช่อง
+                    </label>
+
+                    <span id="slitWidthValue">
+                        50 μm
+                    </span>
+
+                </div>
+
+                <input
+                    id="slitWidth"
+                    type="range"
+                    min="10"
+                    max="100"
+                    value="50"
+                >
+
+                <p>
+                    ช่องแคบลง → แสงกระจายกว้างขึ้น
+                </p>
+
+            </div>
+
+
+            <!-- slit distance -->
+
+            <div
+                class="setting"
+                id="distanceSetting"
+            >
+
+                <div class="setting-top">
+
+                    <label>
+                        ↔️ ระยะห่างระหว่างช่อง
+                    </label>
+
+                    <span id="slitDistanceValue">
+                        500 μm
+                    </span>
+
+                </div>
+
+                <input
+                    id="slitDistance"
+                    type="range"
+                    min="100"
+                    max="1000"
+                    value="500"
+                >
+
+                <p>
+                    ใช้กับ Double Slit
+                </p>
+
+            </div>
+
+
+            <!-- screen -->
+
+            <div class="setting">
+
+                <div class="setting-top">
+
+                    <label>
+                        📏 ระยะถึงฉาก
+                    </label>
+
+                    <span id="screenDistanceValue">
+                        2.5 m
+                    </span>
+
+                </div>
+
+                <input
+                    id="screenDistance"
+                    type="range"
+                    min="5"
+                    max="50"
+                    value="25"
+                >
+
+                <p>
+                    ฉากอยู่ไกลขึ้น → ลายแสงกว้างขึ้น
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= VISUAL ================= -->
+
+        <div class="visual-card">
+
+            <div class="visual-header">
+
+                <div>
+                    <h2>③ ดูการทดลอง</h2>
+
+                    <p>
+                        แสงเดินทางผ่านสลิต
+                        ไปยังฉากรับแสง
+                    </p>
+                </div>
+
+                <div class="live-badge">
+                    ● LIVE
+                </div>
+
+            </div>
+
+
+            <div class="experiment-view">
+
+                <!-- Laser -->
+
+                <div class="laser-source">
+
+                    <div class="laser-dot"></div>
+
+                    <span>
+                        💡 แหล่งกำเนิดแสง
+                    </span>
+
+                </div>
+
+
+                <!-- Beam -->
+
+                <div class="beam"></div>
+
+
+                <!-- Slit -->
+
+                <div class="slit-wall">
+
+                    <div
+                        class="slit-hole slit-one"
+                        id="slitOne">
+                    </div>
+
+                    <div
+                        class="slit-hole slit-two"
+                        id="slitTwo">
+                    </div>
+
+                </div>
+
+
+                <!-- Screen -->
+
+                <div class="screen">
+
+                    <div
+                        class="screen-pattern"
+                        id="lightCanvas">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="diagram-labels">
+
+                <span>💡 แสง</span>
+
+                <span>→</span>
+
+                <span>▥ สลิต</span>
+
+                <span>→</span>
+
+                <span>▤ ฉาก</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= RESULT ================= -->
+
+    <div class="result-section">
+
+        <h2>④ ผลการทดลอง</h2>
+
+        <p class="result-intro">
+            ระบบคำนวณผลให้ทันทีจากค่าที่คุณเลือก
+        </p>
+
+
+        <div class="result-grid">
+
+            <div class="result-card blue">
+
+                <span>💡 ความยาวคลื่น</span>
+
+                <strong id="dataLambda">
+                    550 nm
+                </strong>
+
+            </div>
+
+
+            <div class="result-card purple">
+
+                <span>📐 ระยะห่างแถบ</span>
+
+                <strong id="dataDistance">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card green">
+
+                <span>🔎 รูปแบบที่เห็น</span>
+
+                <strong id="patternStatus">
+                    กำลังทดลอง
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SIMPLE SUMMARY ================= -->
+
+        <div class="summary-box">
+
+            <div class="summary-icon">
+                💡
+            </div>
+
+            <div>
+
+                <h3>สรุปให้เข้าใจง่าย</h3>
+
+                <p id="simpleSummary">
+                    ปรับค่าด้านซ้ายเพื่อเริ่มการทดลอง
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="formula-box">
+
+            <span>📚 สูตรที่เกี่ยวข้อง</span>
+
+            <strong id="formulaText">
+                y ≈ λL / a
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MISSION ================= -->
+
+<section id="missionPage" class="page">
+
+    <button class="back-btn" onclick="goHome()">
+        ← กลับหน้าหลัก
+    </button>
+
+    <h1 class="page-title">
+        🎯 Mission
+    </h1>
+
+    <p class="page-subtitle">
+        เลือกระดับความยาก แล้วทดสอบความเข้าใจ
+    </p>
+
+
+    <div
+        id="difficultySelect"
+        class="difficulty-grid">
+
+        <button
+            class="difficulty-card easy"
+            onclick="startMission('easy')">
+
+            🟢
+
+            <h2>Easy</h2>
+
+            <p>
+                พื้นฐาน
+            </p>
+
+        </button>
+
+
+        <button
+            class="difficulty-card medium"
+            onclick="startMission('medium')">
+
+            🟡
+
+            <h2>Medium</h2>
+
+            <p>
+                เข้าใจหลักการ
+            </p>
+
+        </button>
+
+
+        <button
+            class="difficulty-card hard"
+            onclick="startMission('hard')">
+
+            🔴
+
+            <h2>Hard</h2>
+
+            <p>
+                วิเคราะห์และคำนวณ
+            </p>
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="questionArea"
+        class="question-box"
+        style="display:none;">
+
+        <div class="question-number">
+
+            ข้อ
+            <span id="questionNumber">1</span>
+            /
+            <span id="questionCount">5</span>
+
+        </div>
+
+
+        <div
+            id="questionText"
+            class="question-text">
+        </div>
+
+
+        <div
+            id="answerChoices"
+            class="answer-choices">
+        </div>
+
+
+        <div
+            id="missionFeedback"
+            class="mission-feedback">
+        </div>
+
+
+        <button
+            id="nextQuestionBtn"
+            class="next-btn"
+            onclick="nextQuestion()"
+            style="display:none;">
+
+            ข้อต่อไป →
+
+        </button>
+
+
+        <button
+            class="secondary-btn hint-btn"
+            onclick="photonHint()">
+
+            💡 ขอคำใบ้
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEARN ================= -->
+
+<section id="teacherPage" class="page">
+
+    <button class="back-btn" onclick="goHome()">
+        ← กลับหน้าหลัก
+    </button>
+
+    <h1 class="page-title">
+        📚 Learn
+    </h1>
+
+    <p class="page-subtitle">
+        สูตรสำคัญที่ใช้ในการทดลอง
+    </p>
+
+
+    <div class="learn-grid">
+
+        <div class="learn-card">
+
+            <h2>Single Slit</h2>
+
+            <div class="formula">
+                a sinθ = mλ
+            </div>
+
+            <p>
+                ใช้หาตำแหน่งแถบมืดจากการเลี้ยวเบน
+            </p>
+
+        </div>
+
+
+        <div class="learn-card">
+
+            <h2>Double Slit</h2>
+
+            <div class="formula">
+                β = λL / d
+            </div>
+
+            <p>
+                ใช้หาระยะห่างระหว่างแถบสว่าง
+            </p>
+
+        </div>
+
+
+        <div class="learn-card">
+
+            <h2>การเลี้ยวเบน</h2>
+
+            <div class="formula">
+                y ≈ λL / a
+            </div>
+
+            <p>
+                ช่องแคบลงทำให้แสงกระจายออกมากขึ้น
+            </p>
+
+        </div>
+
+
+        <div class="learn-card">
+
+            <h2>การแทรกสอด</h2>
+
+            <div class="formula">
+                Δ = mλ
+            </div>
+
+            <p>
+                คลื่นที่มาถึงพร้อมกันบางตำแหน่ง
+                จะเสริมกันเป็นแถบสว่าง
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= POPUP ================= -->
+
+<div
+    id="popup"
+    class="popup">
+
+    <div class="popup-content">
+
+        <div
+            id="popupIcon"
+            class="popup-icon">
+            🎉
+        </div>
+
+        <h2 id="popupTitle">
+            เยี่ยมมาก!
+        </h2>
+
+        <p id="popupText">
+            ทำได้ดี
+        </p>
+
+        <button
+            class="primary-btn"
+            onclick="closePopup()">
+
+            ตกลง
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+    SLIT LAB — Physics Learning Game
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
